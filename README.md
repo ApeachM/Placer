@@ -1,13 +1,11 @@
-# EDA API
+# Placement TermProject
 
 [![Build Status](https://img.shields.io/badge/develop-ongoing%20-green)]()
 
-This repository is API for EDA development.
-This API is based on [OpenDB](https://github.com/The-OpenROAD-Project/OpenDB) API.
+This repository is for implementing the placement algorithm.
+Used API is based on [OpenDB](https://github.com/The-OpenROAD-Project/OpenDB) API.
 
-Currently, this project is building for giving template of course work term project of POSTECH in Korea:
-
-The purpose of term project is **Implementing placer**.
+Currently, this project is for giving template of term project, which is for coursework of POSTECH, Korea:
 
 ## External Dependencies
 
