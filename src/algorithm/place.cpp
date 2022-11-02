@@ -35,14 +35,23 @@
 #include <random>
 namespace Placer {
 void Circuit::place() {
-  // Write **your own** code.
-  // !!! Cheating will be strictly not accepted. !!!
-  // If cheating is detected by the similarity check program and TA determine that you have cheated,
-  // then you will get F grade or zero point for this term project.
-  // You can use external libraries for only pure math libraries; i.e) fft, sparse matrix, etc
-  // If you want to use external library, then please check whether it is okay by contact to TA.
+  /*!
+   * Write **your own** code.
+   * !!! Cheating will be strictly not accepted. !!!
+   * If cheating is detected by the similarity check program and TA determine that you have cheated,
+   * then you will get F grade or zero point for this term project.
+   * You can use external libraries for only pure math libraries; i.e) fft, sparse matrix, etc
+   * If you want to use external library, then please check whether it is okay by contact to TA.
+   * */
 
 
+  /*!
+   * This below code is example code for simple placement (random placement).
+   * You should implement your placer referring below code.
+   * After then, you should erase below simple placement code.
+   * */
+
+  /*
   // random place
   // this is simple place example
   //    mt19937 genX(1111);  // fix seed
@@ -57,6 +66,9 @@ void Circuit::place() {
   }
 
   cout << "RandomPlace Done." << endl;
+
+  */
+
 
 }
 }
