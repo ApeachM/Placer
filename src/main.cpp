@@ -12,8 +12,13 @@ int main() {
 
   Placer::Circuit circuit;
   circuit.parse(test_path_name + lefName, test_path_name + defName);
-  // circuit.dbTutorial();
-  circuit.place();
-  circuit.write(output_path_name +"output_"+ defName);
+
+  // 1. Quadratic placement
+  circuit.quadraticPlacement();
+  circuit.write(output_path_name + "output_Quadratic_" + defName);
+
+  // 2. Your own placement
+  circuit.myPlacement();
+  circuit.write(output_path_name + "output_myPlacement_" + defName);
 
 }

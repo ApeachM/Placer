@@ -53,15 +53,17 @@ class Circuit {
   std::vector<Instance *> instance_pointers_;
   std::vector<Net *> net_pointers_;
   std::vector<Pin *> pin_pointers_;
-  Die* die_;
+  Die *die_ = nullptr;
   void init();
 
  public:
   Circuit() = default;
   ~Circuit() = default;
   void parse(const string &lef_name, const string &def_name);
-  void write(const string& out_file_name);
+  void write(const string &out_file_name);
   void place();
+  void quadraticPlacement();
+  void myPlacement();
 
   // etc
   void dbTutorial();

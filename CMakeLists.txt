@@ -14,12 +14,14 @@ set(SOURCES
         src/dataStructures/Pin.cpp
 
         src/algorithm/place.cpp
+        src/algorithm/math/solver.cpp
 
         src/etc/dbTutorial.cpp
         )
 
 add_executable(placer ${SOURCES})
 target_include_directories(placer PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(placer PRIVATE ${PROJECT_SOURCE_DIR}/include/algorithm)
 target_include_directories(placer PRIVATE ${PROJECT_SOURCE_DIR}/include/circuit)
 target_include_directories(placer PRIVATE ${PROJECT_SOURCE_DIR}/include/dataStructures)
 

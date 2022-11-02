@@ -1,50 +1,18 @@
-///////////////////////////////////////////////////////////////////////////////
-// Creator: Minjae Kim of CSDL, POSTECH
-// Email:   kmj0824@postech.ac.kr
-//
-// BSD 3-Clause License
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are met:
-//
-// * Redistributions of source code must retain the above copyright notice, this
-//   list of conditions and the following disclaimer.
-//
-// * Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
-//
-// * Neither the name of the copyright holder nor the names of its
-//   contributors may be used to endorse or promote products derived from
-//   this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
-///////////////////////////////////////////////////////////////////////////////
+/*!
+ * Write **your own** code.
+ * !!! Cheating will be strictly not accepted. !!!
+ * If cheating is detected by the similarity check program and TA determine that you have cheated,
+ * then you will get F grade or zero point for this term project.
+ * You can use external libraries for only pure math libraries; i.e) fft, sparse matrix, etc
+ * If you want to use external library, then please check whether it is okay by contact to TA.
+ * */
 
-#include "Circuit.h"
 #include <random>
+#include "Circuit.h"
+#include "solver.h"
+
 namespace Placer {
 void Circuit::place() {
-  /*!
-   * Write **your own** code.
-   * !!! Cheating will be strictly not accepted. !!!
-   * If cheating is detected by the similarity check program and TA determine that you have cheated,
-   * then you will get F grade or zero point for this term project.
-   * You can use external libraries for only pure math libraries; i.e) fft, sparse matrix, etc
-   * If you want to use external library, then please check whether it is okay by contact to TA.
-   * */
-
-
   /*!
    * This below code is example code for simple placement (random placement).
    * You should implement your placer referring below code.
@@ -69,6 +37,58 @@ void Circuit::place() {
 
   */
 
+}
+
+// write the matrix directly in code
+void solve_example() {
+  cout << endl << "** small demonstration **" << endl;
+  coo_matrix A;
+  int row_idx[] = {0, 0, 1, 1, 1, 2, 2};
+  int col_idx[] = {0, 1, 0, 1, 2, 1, 2};
+  double data[] = {4.0, -1.0, -1.0, 4.0, -1.0, -1.0, 4.0};
+  // component # excepting zero value
+  int data_number = sizeof(row_idx) / sizeof(int);
+
+  // initializing coo_matrix object
+  A.n = 3;  // 3x3 matrix
+  A.nnz = data_number;
+  A.row.resize(data_number);
+  A.col.resize(data_number);
+  A.dat.resize(data_number);
+
+  // value inserting in coo_matrix object
+  A.row = valarray<int>(row_idx, A.nnz);
+  A.col = valarray<int>(col_idx, A.nnz);
+  A.dat = valarray<double>(data, A.nnz);
+
+  // initialize as [1, 1, 1] for golden solution
+  valarray<double> x(1.0, A.n);
+  valarray<double> b(A.n);
+  A.matvec(x, b); // b = Ax
+
+  cout << "b should equal [3,2,3]" << endl;
+  cout << "b = ";
+  print_valarray(b);
+
+  // make we don't know the x value
+  for (int i = 0; i < A.n; ++i) {
+    x[i] = (double) random() / (double) RAND_MAX;
+  }
+
+  // solve for x
+  cout << endl << "x = ";
+  print_valarray(x);
+  A.solve(b, x);
+  cout << "after solve" << endl;
+  cout << "x = ";
+  print_valarray(x);
+}
+
+void Circuit::quadraticPlacement() {
+  solve_example();
+}
+void Circuit::myPlacement() {
 
 }
+
 }
