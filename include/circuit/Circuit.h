@@ -61,7 +61,7 @@ class Circuit {
   ~Circuit() = default;
   void parse(const string &lef_name, const string &def_name);
   void write(const string &out_file_name);
-  void place();
+  void placeExample();
   void quadraticPlacement();
   void myPlacement();
 

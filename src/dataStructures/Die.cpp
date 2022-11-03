@@ -35,4 +35,21 @@
 
 namespace Placer {
 
+Die::Die(dbBlock *db_block) {
+  db_block_ = db_block;
+  db_block->getDieArea(die_shape_);
+}
+void Die::setDbBlock(dbBlock *db_block) {
+  db_block_ = db_block;
+  db_block->getDieArea(die_shape_);
+}
+uint Die::getWidth() {
+  return die_shape_.dx();
+}
+uint Die::getHeight() {
+  return die_shape_.dy();
+}
+uint Die::getArea() {
+  return die_shape_.area();
+}
 } // Placer

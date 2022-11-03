@@ -39,6 +39,10 @@
 namespace Placer {
 using namespace std;
 class Pin {
+  /*!
+  * You don't need to understand/see private part & public part(for Constructors and Circuit.init()).
+  * You should understand/know how to use mentioned functions in public part
+  * */
  private:
   odb::dbDatabase *parent_ = nullptr;
   odb::dbITerm *db_i_term_ = nullptr;
@@ -57,7 +61,16 @@ class Pin {
   void setDataMapping(data_mapping *data_mapping);
   dbITerm *getDbITerm() const;
   dbBTerm *getDbBTerm() const;
+
+
+  /*!
+   * You need to know how to use below functions
+   * */
+
+  /// return boolean whether it is instance pin or not
   bool isInstancePin();
+
+  /// return boolean whether it is block pin (fixed pad in Die) or not
   bool isBlockPin();
 
   /// return Instance pointer correspond to the pin

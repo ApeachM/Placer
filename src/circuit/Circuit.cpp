@@ -42,6 +42,8 @@ void Circuit::parse(const string &lef_name, const string &def_name) {
   this->init();
 }
 void Circuit::init() {
+  // You don't need to understand/see this code.
+  // by TA
   dbBlock *block = parser_.db_database_->getChip()->getBlock();
   dbSet<dbInst> db_instances = block->getInsts();
   dbSet<dbNet> db_nets = block->getNets();

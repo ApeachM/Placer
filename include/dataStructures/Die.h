@@ -38,28 +38,27 @@
 namespace Placer {
 using namespace odb;
 class Die {
+  /*!
+  * You don't need to understand/see private part & public part(for Constructors and Circuit.init()).
+  * You should understand/know how to use mentioned functions in public part
+  * */
  private:
   dbBlock *db_block_ = nullptr;
   Rect die_shape_{};
+
  public:
+  /// Constructors
   Die() = default;
-  explicit Die(dbBlock *db_block) {
-    db_block_ = db_block;
-    db_block->getDieArea(die_shape_);
-  }
-  void setDbBlock(dbBlock *db_block){
-    db_block_ = db_block;
-    db_block->getDieArea(die_shape_);
-  }
-  uint getWidth() {
-    return  die_shape_.dx();
-  }
-  uint getHeight() {
-    return  die_shape_.dy();
-  }
-  uint getArea(){
-    return die_shape_.area();
-  }
+  explicit Die(dbBlock *db_block);
+  /// methods for Circuit.init()
+  void setDbBlock(dbBlock *db_block);
+
+  /*!
+   * You need to know how to use below functions
+   * */
+  uint getWidth();
+  uint getHeight();
+  uint getArea();
 
 };
 

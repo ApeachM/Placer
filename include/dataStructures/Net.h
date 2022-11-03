@@ -43,6 +43,10 @@ using namespace std;
 class Pin;
 class Instance;
 class Net {
+  /*!
+   * You don't need to understand/see private part & public part(for Constructors and Circuit.init()).
+   * You should understand/know how to use mentioned functions in public part
+   * */
  private:
   odb::dbDatabase *db_database_ = nullptr;
   odb::dbNet *db_net_ = nullptr;
@@ -59,6 +63,11 @@ class Net {
   dbNet *getDbNet() const;
   void setDataMapping(data_mapping *data_mapping);
   void setDataStorage(data_storage *data_storage);
+
+
+  /*!
+   * You need to know how to use below functions
+   * */
 
   /// get the connected pin pointers in the net
   vector<Pin *> getConnectedPins();

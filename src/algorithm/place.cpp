@@ -12,14 +12,13 @@
 #include "matrixSolver.h"
 
 namespace Placer {
-void Circuit::place() {
+void Circuit::placeExample() {
   /*!
    * This below code is example code for simple placement (random placement).
    * You should implement your placer referring below code.
    * After then, you should erase below simple placement code.
    * */
 
-  /*
   // random place
   // this is simple place example
   //    mt19937 genX(1111);  // fix seed
@@ -34,8 +33,6 @@ void Circuit::place() {
   }
 
   cout << "RandomPlace Done." << endl;
-
-  */
 
 }
 

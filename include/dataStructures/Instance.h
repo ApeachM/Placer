@@ -42,6 +42,10 @@
 namespace Placer {
 using namespace std;
 class Instance {
+  /*!
+  * You don't need to understand/see private part & public part(for Constructors and Circuit.init()).
+  * You should understand/know how to use mentioned functions in public part
+  * */
  private:
   odb::dbDatabase *db_database_ = nullptr;
   odb::dbInst *db_inst_ = nullptr;
@@ -61,11 +65,14 @@ class Instance {
   explicit Instance(odb::dbInst *db_inst);
   Instance(odb::dbInst *db_inst, data_storage *data_storage, data_mapping *data_mapping);
 
-  /// set data mapping pointer
+  /// methods for Circuit.init()
   void setDataMapping(data_mapping *data_mapping);
-
-  /// set data storage pointer
   void setDataStorage(data_storage *data_storage);
+
+
+  /*!
+   * You need to know how to use below functions
+   */
 
   /// return the instance name of the cell
   /// example: _321_
@@ -102,7 +109,7 @@ class Instance {
     return pair<int, int>{x, y};
   }
 
-  void setCoordinate(int x, int y){
+  void setCoordinate(int x, int y) {
     position_.first = x;
     position_.second = y;
     db_inst_->setPlacementStatus(odb::dbPlacementStatus::PLACED);
