@@ -9,7 +9,7 @@
 
 #include <random>
 #include "Circuit.h"
-#include "solver.h"
+#include "matrixSolver.h"
 
 namespace Placer {
 void Circuit::place() {
@@ -39,52 +39,11 @@ void Circuit::place() {
 
 }
 
-// write the matrix directly in code
-void solve_example() {
-  cout << endl << "** small demonstration **" << endl;
-  coo_matrix A;
-  int row_idx[] = {0, 0, 1, 1, 1, 2, 2};
-  int col_idx[] = {0, 1, 0, 1, 2, 1, 2};
-  double data[] = {4.0, -1.0, -1.0, 4.0, -1.0, -1.0, 4.0};
-  // component # excepting zero value
-  int data_number = sizeof(row_idx) / sizeof(int);
-
-  // initializing coo_matrix object
-  A.n = 3;  // 3x3 matrix
-  A.nnz = data_number;
-  A.row.resize(data_number);
-  A.col.resize(data_number);
-  A.dat.resize(data_number);
-
-  // value inserting in coo_matrix object
-  A.row = valarray<int>(row_idx, A.nnz);
-  A.col = valarray<int>(col_idx, A.nnz);
-  A.dat = valarray<double>(data, A.nnz);
-
-  // initialize as [1, 1, 1] for golden solution
-  valarray<double> x(1.0, A.n);
-  valarray<double> b(A.n);
-  A.matvec(x, b); // b = Ax
-
-  cout << "b should equal [3,2,3]" << endl;
-  cout << "b = ";
-  print_valarray(b);
-
-  // make we don't know the x value
-  for (int i = 0; i < A.n; ++i) {
-    x[i] = (double) random() / (double) RAND_MAX;
-  }
-
-  // solve for x
-  cout << endl << "x = ";
-  print_valarray(x);
-  A.solve(b, x);
-  cout << "after solve" << endl;
-  cout << "x = ";
-  print_valarray(x);
-}
 
 void Circuit::quadraticPlacement() {
+  // matrix solve example.
+  // You should refer below function when you get x respect to Ax = b
+  // Below function is implemented in src/algorithm/math/matrixSolver.cpp
   solve_example();
 }
 void Circuit::myPlacement() {

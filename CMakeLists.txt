@@ -14,7 +14,7 @@ set(SOURCES
         src/dataStructures/Pin.cpp
 
         src/algorithm/place.cpp
-        src/algorithm/math/solver.cpp
+        src/algorithm/math/matrixSolver.cpp
 
         src/etc/dbTutorial.cpp
         )

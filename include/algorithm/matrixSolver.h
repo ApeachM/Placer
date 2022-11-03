@@ -32,4 +32,6 @@ void print_valarray(valarray<T> &v) {
   cout << endl;
 }
 
+void solve_example();
+
 #endif
