@@ -69,4 +69,7 @@ int Net::getWeight() {
 string Net::getSignalType() {
   return db_net_->getSigType().getString();
 }
+string Net::getName() {
+  return db_net_->getName();
+}
 } // Placer

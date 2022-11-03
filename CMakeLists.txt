@@ -16,6 +16,7 @@ set(SOURCES
         src/algorithm/place.cpp
         src/algorithm/math/matrixSolver.cpp
 
+        src/etc/example.cpp
         src/etc/dbTutorial.cpp
         )
 

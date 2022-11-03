@@ -86,6 +86,9 @@ class Pin {
   /// return the signal type of the pin
   string getSignalType();
 
+  /// return the pin name in the instance
+  string getPinName();
+
   /// return the coordinate of the pin.
   /// \details
   /// the returned coordinate will be the center of the box (pin shape)

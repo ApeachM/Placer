@@ -106,4 +106,15 @@ Instance *Pin::getInstance() {
   else
     return nullptr;
 }
+string Pin::getPinName() {
+  string name;
+  if (isInstancePin()) {
+    name = getDbITerm()->getMTerm()->getName();
+  } else if (isBlockPin()) {
+    name = getDbBTerm()->getName();
+  } else {
+    assert(0);
+  }
+  return name;
+}
 } // Placer

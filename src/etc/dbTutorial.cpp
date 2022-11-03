@@ -34,78 +34,18 @@
 #include "Circuit.h"
 namespace Placer {
 using namespace std;
-void Circuit::dbTutorial() {
-/*
-  dbBlock *block = parser_.db_database_->getChip()->getBlock();
-  for (int i = 0; i < 4; ++i) {
-    cout << endl;
-  }
-  // instance cloning into circuit variables
-  dbSet<dbInst> db_instances = block->getInsts();
-  int cellIdx = 0;
+void Circuit::dbTutorial() const {
 
-  for (dbInst *db_instance : db_instances) {
-    if (cellIdx % 10 == 0) {
-      cout << "db_instance->getMaster()->getLib()->getDbUnitsPerMicron(): "
-           << db_instance->getMaster()->getLib()->getDbUnitsPerMicron() << endl;
-      int x, y;
-      auto type = db_instance->getMaster()->getType();
-      if (!type.isCore() && !type.isBlock()) continue;
+  /*!
+   * This function is example for using openDB API.
+   *
+   *
+   * If you want not to use data structure which is implemented by TA
+   * and want to use your own data structure,
+   *
+   * then you can know how to use OpenDB API referring below code.
+   * */
 
-      cout << "db_instance->getName(): " << db_instance->getName() << endl;
-      db_instance->getOrigin(x, y);
-      cout << "getOrigin: " << x << " " << y << endl;
-      cout << "db_instance->getMaster()->getName(): " << db_instance->getMaster()->getName() << endl;
-      cout << "db_instance->getMaster()->getHeight(): " << db_instance->getMaster()->getHeight() << endl;
-      cout << "db_instance->getMaster()->getWidth(): " << db_instance->getMaster()->getWidth() << endl;
-      cout << "db_instance->getMaster()->getLib()->getName(): " << db_instance->getMaster()->getLib()->getName()
-           << endl << endl;
-
-      for (auto masterTerminal : db_instance->getMaster()->getMTerms()) {
-        cout << endl;
-        cout << "terminal name: " << masterTerminal->getName() << endl;
-        cout << "masterTerminal->getSigType().getString(): " << masterTerminal->getSigType().getString() << endl;
-        cout << "masterTerminal->getIoType().getString(): " << masterTerminal->getIoType().getString() << endl;
-        cout << "masterTerminal->getIndex(): " << masterTerminal->getIndex() << endl;
-        cout << "for (auto pin: masterTerminal->getMPins())" << endl;
-        for (auto pin : masterTerminal->getMPins()) {
-          for (auto box : pin->getGeometry()) {
-            cout << "\t" << box->xMin() << " " << box->xMax() << "  " << box->yMin() << " " << box->yMax() << endl;
-          }
-        }
-      }
-      cout << endl;
-
-      for (auto instanceTerminal : db_instance->getITerms()) {
-        instanceTerminal->getAvgXY(&x, &y);
-        if (instanceTerminal->getNet())
-          cout << instanceTerminal->getNet()->getName() << endl;
-        else
-          cout << "None net." << endl;
-        cout << " " << instanceTerminal->getMTerm()->getName()
-             << " " << instanceTerminal->getIoType().getString() << " " << x << " " << y << endl;;
-      }
-
-      cout << endl << endl;
-      cout << "get origin: " << x << " " << y << endl;
-      for (auto instanceTerminal: db_instance->getITerms()) {
-        instanceTerminal->getAvgXY(&x, &y);
-        cout << x << " " << y << endl;
-      }
-      db_instance->setOrigin(100, 200);
-      db_instance->getOrigin(x, y);
-      cout << "get origin: " << x << " " << y << endl;
-      for (auto instanceTerminal: db_instance->getITerms()) {
-        instanceTerminal->getAvgXY(&x, &y);
-        cout << x << " " << y << endl;
-      }
-
-
-      cout << "instance end." << endl << endl;
-      cellIdx++;
-    }
-  }
- * */
 
   cout << endl << endl << endl << endl;
   cout << "OpenDB Tutorial starts." << endl;
@@ -140,6 +80,9 @@ void Circuit::dbTutorial() {
   }
   cout << "The number of the terminals of instance: " << db_inst->getMaster()->getMTermCount() << endl;
   cout << endl;
+
+  // instance location setting
+  db_inst->setLocation(200, 300);
 
   cout << "The pin data" << endl;
   for (auto instance_terminal : db_inst->getITerms()) {

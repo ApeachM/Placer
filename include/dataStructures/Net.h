@@ -69,6 +69,8 @@ class Net {
    * You need to know how to use below functions
    * */
 
+  /// get net name
+  string getName();
   /// get the connected pin pointers in the net
   vector<Pin *> getConnectedPins();
 

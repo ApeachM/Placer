@@ -52,7 +52,8 @@ class Circuit {
 
   std::vector<Instance *> instance_pointers_;
   std::vector<Net *> net_pointers_;
-  std::vector<Pin *> pin_pointers_;
+  std::vector<Pin *> pin_pointers_;  // This vector includes instance pin pointers and pad pin pointers
+  std::vector<Pin *> pad_pointers_;
   Die *die_ = nullptr;
   void init();
 
@@ -61,12 +62,13 @@ class Circuit {
   ~Circuit() = default;
   void parse(const string &lef_name, const string &def_name);
   void write(const string &out_file_name);
-  void placeExample();
   void quadraticPlacement();
   void myPlacement();
 
   // etc
-  void dbTutorial();
+  void dbTutorial() const;
+  void howToUse();
+  void placeExample();
 };
 
 } // Placer

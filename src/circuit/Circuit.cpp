@@ -106,6 +106,7 @@ void Circuit::init() {
       data_mapping_.pin_map_i[pin_pointer->getDbITerm()] = pin_pointer;
     } else if (pin_pointer->isBlockPin()) {
       data_mapping_.pin_map_b[pin_pointer->getDbBTerm()] = pin_pointer;
+      pad_pointers_.push_back(pin_pointer);
     }
   }
 
