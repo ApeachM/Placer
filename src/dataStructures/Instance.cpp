@@ -1,6 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Creator: Minjae Kim of CSDL, POSTECH
 // Email:   kmj0824@postech.ac.kr
+// GitHub:  ApeachM
 //
 // BSD 3-Clause License
 //
@@ -47,7 +48,7 @@ void Instance::setDataMapping(data_mapping *data_mapping) {
   data_mapping_ = data_mapping;
 }
 dbInst *Instance::getDbInst() const {
-  if(db_inst_ == nullptr)
+  if (db_inst_ == nullptr)
     std::cout << "Invalid access to db data from instance" << std::endl;
   return db_inst_;
 }
@@ -78,4 +79,22 @@ Instance::Instance(odb::dbInst *db_inst, data_storage *data_storage, data_mappin
 uint Instance::getArea() {
   return this->getWidth() * this->getHeight();
 }
+void Instance::setCoordinate(int x, int y) {
+  position_.first = x;
+  position_.second = y;
+  db_inst_->setPlacementStatus(odb::dbPlacementStatus::PLACED);
+  db_inst_->setLocation(x, y);
+}
+bool Instance::isPlaced() {
+  if (db_inst_->getPlacementStatus() == odb::dbPlacementStatus::PLACED) {
+    return true;
+  } else if (db_inst_->getPlacementStatus() == odb::dbPlacementStatus::NONE) {
+    return false;
+  } else if (db_inst_->getPlacementStatus() == odb::dbPlacementStatus::UNPLACED) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 } // Placer

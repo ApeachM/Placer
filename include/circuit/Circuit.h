@@ -1,6 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Creator: Minjae Kim of CSDL, POSTECH
 // Email:   kmj0824@postech.ac.kr
+// GitHub:  ApeachM
 //
 // BSD 3-Clause License
 //
@@ -57,6 +58,21 @@ class Circuit {
   Die *die_ = nullptr;
   void init();
 
+  // for evaluation
+  Circuit *compared_circuit_ = nullptr;
+  bool cellNumCheck(int);
+  bool netNumCheck(int);
+  bool pinNumCheck(int);
+  bool padNumCheck(int);
+
+  int getCellNumber();
+  int getNetNumber();
+  int getPinNumber();
+  int getPadNumber();
+
+  bool placeCheck();
+  bool densityCheck();
+
  public:
   Circuit() = default;
   ~Circuit() = default;
@@ -69,6 +85,12 @@ class Circuit {
   void dbTutorial() const;
   void howToUse();
   void placeExample();
+
+  // for evaluation
+  bool evaluate(Circuit *compared_circuit);
+  vector<int> getVariableNumbers();  // vector<int> {cell #, net #, pin #, pad #}
+
+
 };
 
 } // Placer

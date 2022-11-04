@@ -31,40 +31,33 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////
-#ifndef PLACER_INCLUDE_DATASTRUCTURES_STRUCTURES_H_
-#define PLACER_INCLUDE_DATASTRUCTURES_STRUCTURES_H_
-#include <unordered_map>
-#include <vector>
-#include "db.h"
-#include "Die.h"
+#include <iostream>
+#include "Circuit.h"
 
-/*!
- * You don't need to understand/see this part.
- * by TA
- * */
+using namespace std;
 
-namespace Placer {
-using namespace odb;
-class Instance;
-class Net;
-class Pin;
+int main() {
+  string lefName = "Nangate45.lef";
+  string defName = "simple01.def";
+  string test_path_name = "../test/benchmarks/";
+  string output_path_name = "../output/";
 
-/// data storages
-struct data_storage {
-  std::vector<Instance> instances;
-  std::vector<Net> nets;
-  std::vector<Pin> pins;
-  Die die;
-};
+  Placer::Circuit circuit_input;
+  circuit_input.parse(test_path_name + lefName, test_path_name + defName);
+  cout << "Reference circuit is parsed." << endl;
+  for (int i = 0; i < 3; ++i)
+    cout << endl;
 
-/// data mapping from db to data_storage
-struct data_mapping {
-  std::unordered_map<dbInst *, Instance *> inst_map;
-  std::unordered_map<dbNet *, Net *> net_map;
-  /// mapping for terminals on instance (pins on cell)
-  std::unordered_map<dbITerm *, Pin *> pin_map_i;
-  /// mapping for terminals on blocks (includes fixed pins on die)
-  std::unordered_map<dbBTerm *, Pin *> pin_map_b;
-};
+  Placer::Circuit circuit_output;
+  circuit_output.parse(test_path_name + lefName, output_path_name + "output_myPlacement_" + defName);
+  cout << "Circuit made by you is parsed." << endl;
+  for (int i = 0; i < 3; ++i)
+    cout << endl;
+
+  // evaluation execute
+  circuit_output.evaluate(&circuit_input);
+
+  cout << "Evaluation is end." << endl;
+
+  return 0;
 }
-#endif //PLACER_INCLUDE_DATASTRUCTURES_STRUCTURES_H_
