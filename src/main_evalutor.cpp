@@ -38,26 +38,28 @@ using namespace std;
 
 int main() {
   string lefName = "Nangate45.lef";
-  string defName = "simple01.def";
+//  string defName = "simple01.def";
+  string defName = "large01.def";
   string test_path_name = "../test/benchmarks/";
   string output_path_name = "../output/";
 
   Placer::Circuit circuit_input;
   circuit_input.parse(test_path_name + lefName, test_path_name + defName);
-  cout << "Reference circuit is parsed." << endl;
   for (int i = 0; i < 3; ++i)
     cout << endl;
+  cout << "Reference circuit is parsed." << endl;
 
   Placer::Circuit circuit_output;
   circuit_output.parse(test_path_name + lefName, output_path_name + "output_myPlacement_" + defName);
-  cout << "Circuit made by you is parsed." << endl;
   for (int i = 0; i < 3; ++i)
     cout << endl;
+  cout << "Circuit made by you is parsed." << endl;
 
   // evaluation execute
-  circuit_output.evaluate(&circuit_input);
-
-  cout << "Evaluation is end." << endl;
+  if (circuit_output.evaluate(&circuit_input))
+    cout << "Evaluation is end completely." << endl;
+  else
+    cout << "Some condition is not satisfied." << endl;
 
   return 0;
 }
