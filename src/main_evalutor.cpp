@@ -55,6 +55,8 @@ int main() {
     cout << endl;
   cout << "Circuit made by you is parsed." << endl;
 
+  cout << "HPWL: " << circuit_output.getHPWL();
+
   // evaluation execute
   if (circuit_output.evaluate(&circuit_input))
     cout << "Evaluation is end completely." << endl;

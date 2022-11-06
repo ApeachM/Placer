@@ -201,5 +201,12 @@ bool Circuit::densityCheck() {
     return true;
   }
 }
+ulong Circuit::getHPWL() {
+  ulong HPWL = 0;
+  for (Net *net : net_pointers_) {
+    HPWL += net->getHPWL();
+  }
+  return HPWL;
+}
 
 }

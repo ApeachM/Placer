@@ -83,6 +83,9 @@ class Net {
   /// get weight of the net
   int getWeight();
 
+  /// get HPWLe of the net
+  ulong getHPWL();
+
 };
 
 }

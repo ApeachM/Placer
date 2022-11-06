@@ -87,6 +87,7 @@ class Circuit {
   void placeExample();
 
   // for evaluation
+  ulong getHPWL();
   bool evaluate(Circuit *compared_circuit);
   vector<int> getVariableNumbers();  // vector<int> {cell #, net #, pin #, pad #}
 
