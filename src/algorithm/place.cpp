@@ -20,7 +20,7 @@ void Circuit::quadraticPlacement() {
   solve_example();
 }
 void Circuit::myPlacement() {
-
+  this->placeExample();
 }
 
 }

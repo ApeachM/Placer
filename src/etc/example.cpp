@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Creator: Minjae Kim of CSDL, POSTECH
 // Email:   kmj0824@postech.ac.kr
-// GitHub ID: ApeachM
+// GitHub:  ApeachM
 //
 // BSD 3-Clause License
 //

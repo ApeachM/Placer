@@ -1,6 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Creator: Minjae Kim of CSDL, POSTECH
 // Email:   kmj0824@postech.ac.kr
+// GitHub:  ApeachM
 //
 // BSD 3-Clause License
 //
@@ -109,12 +110,14 @@ class Instance {
     return pair<int, int>{x, y};
   }
 
-  void setCoordinate(int x, int y) {
-    position_.first = x;
-    position_.second = y;
-    db_inst_->setPlacementStatus(odb::dbPlacementStatus::PLACED);
-    db_inst_->setLocation(x, y);
-  }
+  /// set coordinate of the instance(cell)
+  /// \details
+  /// this function will set the coordinate of instance as int data type.
+  /// after calling this function, the pins correspond to the cell will be also moved automatically.
+  void setCoordinate(int x, int y);
+
+  /// check whether it is placed or not
+  bool isPlaced();
 
 };
 
