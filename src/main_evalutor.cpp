@@ -38,15 +38,21 @@
 
 using namespace std;
 
+void callUsage() {
+  cout << "Usage:" << endl;
+  cout << "\t./evaluator <defFileName.def> 0||1" << endl << endl;
+  cout << "\tYou should get the argument as the def file name in test/benchmarks," << endl;
+  cout << "\tand write zero or one evaluate the density or not." << endl;
+  cout << "\tIf you want to evaluate only for quadratic, then put zero in there. " << endl << endl;
+
+  cout << "\tEx)" << endl;
+  cout << "\t\t./evaluator simple01.def 0" << endl;
+}
+
 int main(int argc, char **argv) {
 
-  if (argc != 2) {
-    cout << "Usage:" << endl;
-    cout << "\t./qPlacer <defFileName.def>" << endl << endl;
-    cout << "\tYou should get the argument as the def file name in test/benchmarks." << endl << endl;
-
-    cout << "\tEx)" << endl;
-    cout << "\t\t./qPlacer simple01.def" << endl;
+  if (argc != 3) {
+    callUsage();
     return 0;
   }
   string lefName = "Nangate45.lef";
@@ -56,6 +62,22 @@ int main(int argc, char **argv) {
     stringstream ss;
     ss << argv[1];
     ss >> defName;
+  }
+
+  bool density_evaluate = false;
+  {  // simple argument parsing
+    string argv2;
+    stringstream ss;
+    ss << argv[2];
+    ss >> argv2;
+    if (argv2 == "0")
+      density_evaluate = false;
+    else if (argv2 == "1")
+      density_evaluate = true;
+    else {
+      callUsage();
+      return 0;
+    }
   }
 
   string test_path_name = "../test/benchmarks/";
@@ -74,9 +96,19 @@ int main(int argc, char **argv) {
   cout << "HPWL: " << static_cast<double>(circuit_output.getHPWL()) << endl;
 
   // evaluation execute
-  if (!circuit_output.evaluate(&circuit_input)) {
-    cout << "Some condition is not satisfied." << endl;
-    return 0;
+  if (!density_evaluate) {
+    // for quadratic evaluation || basic evaluation
+    if (!circuit_output.evaluate(&circuit_input)) {
+      // fail
+      cout << "Some condition is not satisfied." << endl;
+      return 0;
+    }
+  } else {
+    // for evaluation with density checking
+    if (!circuit_output.evaluateIncludeDensity(&circuit_input)) {
+      cout << "Some condition is not satisfied." << endl;
+      return 0;
+    }
   }
 
   cout << "Evaluation is end completely." << endl;

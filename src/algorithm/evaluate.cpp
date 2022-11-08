@@ -60,6 +60,33 @@ bool Circuit::evaluate(Circuit *compared_circuit) {
     cout << "Some cell is not placed." << endl;
     return false;
   }
+  return true;
+}
+
+bool Circuit::evaluateIncludeDensity(Circuit *compared_circuit) {
+  compared_circuit_ = compared_circuit;
+
+  // Variable numbers check
+  vector<int> variable_numbers = compared_circuit_->getVariableNumbers();
+  if (!cellNumCheck(variable_numbers.at(0))) {
+    cout << "Cell number is different with inputted file." << endl;
+    return false;
+  } else if (!netNumCheck(variable_numbers.at(1))) {
+    cout << "Net number is different with inputted file." << endl;
+    return false;
+  } else if (!pinNumCheck(variable_numbers.at(2))) {
+    cout << "Pin number is different with inputted file." << endl;
+    return false;
+  } else if (!padNumCheck(variable_numbers.at(3))) {
+    cout << "Pad number is different with inputted file." << endl;
+    return false;
+  }
+
+  // Placed check
+  if (!placeCheck()) {
+    cout << "Some cell is not placed." << endl;
+    return false;
+  }
 
   // Density check
   if (!densityCheck()) {

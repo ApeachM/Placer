@@ -97,6 +97,7 @@ class Circuit {
   // for evaluation
   ulong getHPWL();
   bool evaluate(Circuit *compared_circuit);
+  bool evaluateIncludeDensity(Circuit *compared_circuit);
   vector<int> getVariableNumbers();  // vector<int> {cell #, net #, pin #, pad #}
 
 
