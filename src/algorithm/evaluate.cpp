@@ -129,9 +129,24 @@ bool Circuit::placeCheck() {
   return all_placed;
 }
 bool Circuit::densityCheck() {
-  // make the grid as 40x40
-  int number_of_grid_X = 40;
-  int number_of_grid_Y = 40;
+  // get the average cell width and height
+  long averageWidth = 0, averageHeight = 0;
+  for (Instance *instance : instance_pointers_) {
+    averageWidth += instance->getWidth();
+    averageHeight += instance->getHeight();
+  }
+  if (averageWidth < 0)
+    assert(0);
+  averageWidth /= static_cast<int>(instance_pointers_.size());
+  averageHeight /= static_cast<int>(instance_pointers_.size());
+
+  int number_of_grid_X = floor(static_cast<float>(die_->getWidth() / averageWidth) * 0.2);
+  int number_of_grid_Y = floor(static_cast<float>(die_->getHeight() / averageHeight) * 0.2);
+  if (number_of_grid_X > 40)
+    number_of_grid_X = 40;
+  if (number_of_grid_Y > 40)
+    number_of_grid_Y = 40;
+
   uint die_width = die_->getWidth();
   uint die_height = die_->getHeight();
   int bin_width = static_cast<int>(die_width / number_of_grid_X);
@@ -148,9 +163,9 @@ bool Circuit::densityCheck() {
     int cell_area{};
   };
   vector<vector<Bin>> bins2D;
-  for (int i = 0; i < number_of_grid_Y; ++i) {
+  for (int i = 0; i < number_of_grid_X; ++i) {
     vector<Bin> bins1D;
-    for (int j = 0; j < number_of_grid_X; ++j) {
+    for (int j = 0; j < number_of_grid_Y; ++j) {
       pair<int, int> lower_left{i * bin_width, j * bin_height};
       pair<int, int> upper_right{(i + 1) * bin_width, (j + 1) * bin_height};
       bins1D.emplace_back(static_cast<int>(die_width * die_height), lower_left, upper_right);
@@ -190,11 +205,16 @@ bool Circuit::densityCheck() {
   auto max_density =
       static_cast<float>(max_cell_area_in_bin * 1e-10) / static_cast<float>(1e-10 * bin_height * bin_width);
 
-  if (max_density > 1.2) {
-    cout << "The overflow grid is ("
-         << max_density_bin.lower_left.first << ", " << max_density_bin.lower_left.second << ")"
+  if (max_density > 1.0) {
+    cout << "The overflow grid is " << endl
+         << "(" << max_density_bin.lower_left.first << ", " << max_density_bin.lower_left.second << ")"
          << ", (" << max_density_bin.upper_right.first << ", " << max_density_bin.upper_right.second << ")"
-         << "  (lower left), (upper right)" << endl;
+         << "  (lower left), (upper right)" << endl
+         << "(" << max_density_bin.lower_left.first / this->getUnitOfMicro() << ", "
+         << max_density_bin.lower_left.second / this->getUnitOfMicro() << ")"
+         << ", (" << max_density_bin.upper_right.first / this->getUnitOfMicro() << ", "
+         << max_density_bin.upper_right.second / this->getUnitOfMicro() << ")"
+         << "  (lower left), (upper right) in micro unit" << endl;
     cout << "Max density: " << max_density << endl;
     return false;
   } else {
@@ -207,6 +227,9 @@ ulong Circuit::getHPWL() {
     HPWL += net->getHPWL();
   }
   return HPWL;
+}
+int Circuit::getUnitOfMicro() const {
+  return parser_.db_database_->getTech()->getDbUnitsPerMicron();
 }
 
 }

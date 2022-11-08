@@ -81,6 +81,14 @@ class Circuit {
   void quadraticPlacement();
   void myPlacement();
 
+  /// get unit of micro
+  /// \details
+  /// the coordinate in this circuit is `return value`/1um.
+  /// \example
+  /// if the return value is 100, then
+  /// (20000, 30000) means coordinate (200um, 300um)
+  int getUnitOfMicro() const;
+
   // etc
   void howToUse();
   void placeExample();
