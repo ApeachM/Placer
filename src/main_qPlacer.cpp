@@ -1,8 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Creator: Minjae Kim of CSDL, POSTECH
-// Email:   kmj0824@postech.ac.kr
-// GitHub:  ApeachM
-//
+// Creator: CSDL, POSTECH
 // BSD 3-Clause License
 //
 // Redistribution and use in source and binary forms, with or without
@@ -33,7 +30,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <sstream>
-#include <iomanip>
 #include "Circuit.h"
 
 using namespace std;
@@ -49,6 +45,7 @@ int main(int argc, char **argv) {
     cout << "\t\t./qPlacer simple01.def" << endl;
     return 0;
   }
+
   string lefName = "Nangate45.lef";
   // string defName = "simple01.def"
   string defName;
@@ -59,26 +56,16 @@ int main(int argc, char **argv) {
   }
 
   string test_path_name = "../test/benchmarks/";
-  string output_path_name = "../output/placer/";
+  string output_path_name = "../output/qPlacer";
 
-  Placer::Circuit circuit_input;
-  circuit_input.parse(test_path_name + lefName, test_path_name + defName);
-  // Reference circuit is parsed.
+  Placer::Circuit circuit;
+  circuit.parse(test_path_name + lefName, test_path_name + defName);
 
-  Placer::Circuit circuit_output;
-  circuit_output.parse(test_path_name + lefName, output_path_name + defName);
-  // Circuit made by you is parsed.
+  // circuit.howToUse();
 
-  // HPWL calculation
-  cout << scientific << endl;
-  cout << "HPWL: " << static_cast<double>(circuit_output.getHPWL()) << endl;
+  circuit.quadraticPlacement();
+  circuit.write(output_path_name + defName);
 
-  // evaluation execute
-  if (!circuit_output.evaluate(&circuit_input)) {
-    cout << "Some condition is not satisfied." << endl;
-    return 0;
-  }
+  cout << "Def is written successfully." << endl;
 
-  cout << "Evaluation is end completely." << endl;
-  return 0;
 }

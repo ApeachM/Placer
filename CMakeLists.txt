@@ -16,27 +16,25 @@ set(SOURCES
         src/algorithm/math/matrixSolver.cpp
 
         src/etc/example.cpp
-        src/etc/dbTutorial.cpp
-
+        src/etc/dbExample.cpp
         )
 
-add_executable(placer src/main.cpp ${SOURCES})
-target_include_directories(placer PRIVATE
+set(INCLUDE_DIRS
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/include/algorithm
         ${PROJECT_SOURCE_DIR}/include/circuit
         ${PROJECT_SOURCE_DIR}/include/dataStructures
         )
 
+add_executable(placer src/main_placer.cpp ${SOURCES})
+add_executable(qPlacer src/main_qPlacer.cpp ${SOURCES})
 add_executable(evaluator src/main_evalutor.cpp ${SOURCES})
-target_include_directories(evaluator PRIVATE
-        ${PROJECT_SOURCE_DIR}/include
-        ${PROJECT_SOURCE_DIR}/include/algorithm
-        ${PROJECT_SOURCE_DIR}/include/circuit
-        ${PROJECT_SOURCE_DIR}/include/dataStructures
-        ${PROJECT_SOURCE_DIR}/include/etc
-        )
+
+target_include_directories(placer PRIVATE ${INCLUDE_DIRS})
+target_include_directories(qPlacer PRIVATE ${INCLUDE_DIRS})
+target_include_directories(evaluator PRIVATE ${INCLUDE_DIRS})
 
 add_subdirectory(submodule/OpenDB)
 target_link_libraries(placer PRIVATE opendb)
+target_link_libraries(qPlacer PRIVATE opendb)
 target_link_libraries(evaluator PRIVATE opendb)

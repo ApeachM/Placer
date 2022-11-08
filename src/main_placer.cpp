@@ -1,8 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Creator: Minjae Kim of CSDL, POSTECH
-// Email:   kmj0824@postech.ac.kr
-// GitHub:  ApeachM
-//
+// Creator: CSDL, POSTECH
 // BSD 3-Clause License
 //
 // Redistribution and use in source and binary forms, with or without
@@ -32,28 +29,33 @@
 // POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////
 #include <iostream>
+#include <sstream>
 #include "Circuit.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char **argv) {
   string lefName = "Nangate45.lef";
-  string defName = "large01.def";
-//  string defName = "simple01.def";
+  // string defName = "simple01.def"
+  string defName;
+  {  // simple argument parsing
+    stringstream ss;
+    ss << argv[1];
+    ss >> defName;
+  }
   string test_path_name = "../test/benchmarks/";
-  string output_path_name = "../output/";
+  string output_path_name = "../output/placer/";
 
+  // Parsing and initialize start
   Placer::Circuit circuit;
   circuit.parse(test_path_name + lefName, test_path_name + defName);
 
   // circuit.howToUse();
 
-//  // 1. Quadratic placement
-//  circuit.quadraticPlacement();
-//  circuit.write(output_path_name + "output_Quadratic_" + defName);
-
-  // 2. Your own placement
+  // Your own placement
   circuit.myPlacement();
-  circuit.write(output_path_name + "output_myPlacement_" + defName);
+  circuit.write(output_path_name + defName);
+
+  cout << "Def is written successfully." << endl;
 
 }
