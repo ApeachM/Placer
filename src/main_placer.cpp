@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Creator: CSDL, POSTECH
+// This is property of CSDL, POSTECH in Korea
 // BSD 3-Clause License
 //
 // Redistribution and use in source and binary forms, with or without
