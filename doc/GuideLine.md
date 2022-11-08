@@ -50,7 +50,50 @@ the `University of Illinois/NCSA`.
 In this part, you have to implement your own placement. The algorithm can be from your own idea, any journal, paper, or
 textbook. If you use other ideas from outside of your own, then annotate where the idea is from on the code.
 
+### How To Set The Env?
 
+In the `mobaXTerm` or `Terminal`, enter the below command to access class server of POSTECH.
+
+```shell
+ssh -p 5900 <yourID>@class.postech.ac.kr -Y
+```
+
+ For example,
+
+```shell
+ssh -p 5900 22EE66700@class.postech.ac.kr -Y
+```
+
+You ID and PW will be given through `PLMS`. After access to the class server through your account, you should change your password by [below command](https://www.cyberciti.biz/faq/linux-set-change-password-how-to/).
+
+```shell
+passwd
+```
+
+After access the server, copy the file and unzip.
+
+```shell
+cp ../22EE66700/TermProject.zip .
+unzip TermProject.zip
+cd TermProject
+```
+
+And for build the project, you should load `gcc`, `cmake`, and `swig`.
+
+```shell
+module load cmake/3.22.2 
+module load gcc/8.3.1 
+module load swig/3.0.2 
+```
+
+Then follow `how to build` section to build your make file.
+
+```shell
+mkdir build
+cd build
+cmake ..
+make
+```
 
 
 
@@ -351,8 +394,7 @@ program (and also examined by TA), then you will get an F grade in this course, 
 
 This part will be graded by HPWL value.
 
-If the HPWL value is the same as the Quadratic placer implemented by TA, then you will be a full score in this part. (
-each benchmarks has 6 points)
+If the HPWL value is the same as the Quadratic placer implemented by TA, then you will be a full score in this part. (each benchmarks has 6 points)
 
 The allowed errors of HPWL value are accepted ±10%.
 
@@ -397,13 +439,26 @@ by `the total cell area in the grid / the grid area`. If `the max value of the d
 The grading will follow the below equation.
 
 $$
-Score = \begin{cases}
+Score = \begin{cases} \alpha\times
 \frac{1}{1+\log(\frac{HPWL}{HPWL_{1th}})}, & \text{if } maxDensity \leq 1 \\
+\alpha\times
 \frac{1}{1+\log(\frac{HPWL}{HPWL_{1th}})}\times e^{-(maxDensity -1)}, & \text{otherwise}
 \end{cases}
 $$
 
-Here, $HPWL_{1th}$ is the smallest `HPWL` value in the students which is passed by the max density check.
+Here, $HPWL_{1th}$ is the smallest `HPWL` value in the students which is passed by the max density check. $\alpha$ depends on bench. Five bench has their own $\alpha$, and this  follows below.
+
+| Benchmark    | alpha |
+| ------------ | ----- |
+| medium01.def | 10    |
+| medium02.def | 10    |
+| medium03.def | 10    |
+| large01.def  | 20    |
+| large02.def  | 20    |
+
+Total summation of alpha is 70 point.
+
+
 
 You can know the HPWL value and max density value by executing `evaluator` binary file.
 
