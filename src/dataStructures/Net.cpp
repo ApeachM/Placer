@@ -73,7 +73,6 @@ string Net::getSignalType() {
 string Net::getName() {
   return db_net_->getName();
 }
-
 ulong Net::getHPWL() {
   Rect net_box;
   net_box.mergeInit();

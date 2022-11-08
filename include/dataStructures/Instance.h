@@ -84,14 +84,10 @@ class Instance {
   string getLibName();
 
   /// get width of the instance(cell)
-  uint getWidth() {
-    return db_inst_->getMaster()->getWidth();
-  }
+  uint getWidth();
 
   /// get height of the instance(cell)
-  uint getHeight() {
-    return db_inst_->getMaster()->getHeight();
-  }
+  uint getHeight();
 
   /// get area of the instance(cell)
   uint getArea();
@@ -104,11 +100,7 @@ class Instance {
   /// get coordinate of the instance(cell)
   /// \details
   /// this function will return the lower left coordinate of instance.
-  pair<int, int> getCoordinate() {
-    int x = 0, y = 0;
-    db_inst_->getLocation(x, y);
-    return pair<int, int>{x, y};
-  }
+  pair<int, int> getCoordinate();
 
   /// set coordinate of the instance(cell)
   /// \details

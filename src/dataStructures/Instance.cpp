@@ -96,5 +96,16 @@ bool Instance::isPlaced() {
     return true;
   }
 }
+uint Instance::getWidth() {
+  return db_inst_->getMaster()->getWidth();
+}
+uint Instance::getHeight() {
+  return db_inst_->getMaster()->getHeight();
+}
+pair<int, int> Instance::getCoordinate() {
+  int x = 0, y = 0;
+  db_inst_->getLocation(x, y);
+  return pair<int, int>{x, y};
+}
 
 } // Placer

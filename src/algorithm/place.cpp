@@ -11,16 +11,13 @@
 #include "matrixSolver.h"
 
 namespace Placer {
-
-
 void Circuit::quadraticPlacement() {
   // matrix solve example.
   // You should refer below function when you get x respect to Ax = b
   // Below function is implemented in src/algorithm/math/matrixSolver.cpp
-  solve_example();
+  solve_example();  // You should erase this line.
 }
 void Circuit::myPlacement() {
-  this->placeExample();
+  this->placeExample();  // You should erase this line.
 }
-
 }

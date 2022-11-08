@@ -82,9 +82,9 @@ class Circuit {
   void myPlacement();
 
   // etc
-  void dbTutorial() const;
   void howToUse();
   void placeExample();
+  void dbTutorial() const;
 
   // for evaluation
   ulong getHPWL();
