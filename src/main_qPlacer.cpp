@@ -1,5 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 // This is property of CSDL, POSTECH in Korea
+// Creator: Minjae Kim of CSDL, POSTECH
+// Email:   kmj0824@postech.ac.kr
+// GitHub:  ApeachM
 // BSD 3-Clause License
 //
 // Redistribution and use in source and binary forms, with or without
