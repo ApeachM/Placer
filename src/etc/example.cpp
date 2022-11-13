@@ -80,7 +80,7 @@ void Circuit::howToUse() {
 
   // Access the 5th instance for demonstrate how to use the data structures
   cout << "Access 5th cell in the circuit." << endl;
-  Instance *instance = instance_pointers_.at(5);
+  Instance *instance = instance_pointers_.at(4);
   cout << "Cell name: " << instance->getName() << endl;
   cout << "Cell height: " << instance->getHeight() << endl;
   cout << "Cell width: " << instance->getWidth() << endl;
@@ -108,7 +108,7 @@ void Circuit::howToUse() {
 
 
   // Grab any pin for demonstrate how to use the data structures
-  // here, I'll grab 2nd pin in the above selected cell
+  // here, I'll grab 3rd pin in the above selected cell
   if (instance->getPins().at(2)) {
     Pin *pin = instance->getPins().at(2);
 
@@ -129,6 +129,8 @@ void Circuit::howToUse() {
 
     }
   }
+
+  // access to the pad (fixed pins in the circuit)
 
 }
 }

@@ -440,13 +440,13 @@ The grading will follow the below equation.
 
 $$
 Score = \begin{cases} \alpha\times
-\frac{1}{1+\log(\frac{HPWL}{HPWL_{1th}})}, & \text{if } maxDensity \leq 1 \\
+\frac{1}{1+\log(\frac{HPWL}{HPWL_{1st}})}, & \text{if } maxDensity \leq 1 \\
 \alpha\times
-\frac{1}{1+\log(\frac{HPWL}{HPWL_{1th}})}\times e^{-(maxDensity -1)}, & \text{otherwise}
+\frac{1}{1+\log(\frac{HPWL}{HPWL_{1st}})}\times e^{-(maxDensity -1)}, & \text{otherwise}
 \end{cases}
 $$
 
-Here, $HPWL_{1th}$ is the smallest `HPWL` value in the students which is passed by the max density check. $\alpha$ depends on bench. Five bench has their own $\alpha$, and this  follows below.
+Here, $HPWL_{1st}$ is the smallest `HPWL` value in the students which is passed by the max density check. $\alpha$ depends on bench. Five bench has their own $\alpha$, and this  follows below.
 
 | Benchmark    | alpha |
 | ------------ | ----- |

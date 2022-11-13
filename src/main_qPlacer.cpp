@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
   Placer::Circuit circuit;
   circuit.parse(test_path_name + lefName, test_path_name + defName);
 
-   circuit.howToUse();
+  circuit.howToUse();
 
   circuit.quadraticPlacement();
   circuit.write(output_path_name + defName);
