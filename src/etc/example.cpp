@@ -80,7 +80,7 @@ void Circuit::howToUse() {
 
   // Access the 5th instance for demonstrate how to use the data structures
   cout << "Access 5th cell in the circuit." << endl;
-  Instance *instance = instance_pointers_.at(10);
+  Instance *instance = instance_pointers_.at(5);
   cout << "Cell name: " << instance->getName() << endl;
   cout << "Cell height: " << instance->getHeight() << endl;
   cout << "Cell width: " << instance->getWidth() << endl;

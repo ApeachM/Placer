@@ -59,12 +59,12 @@ int main(int argc, char **argv) {
   }
 
   string test_path_name = "../test/benchmarks/";
-  string output_path_name = "../output/qPlacer";
+  string output_path_name = "../output/qPlacer/";
 
   Placer::Circuit circuit;
   circuit.parse(test_path_name + lefName, test_path_name + defName);
 
-  // circuit.howToUse();
+   circuit.howToUse();
 
   circuit.quadraticPlacement();
   circuit.write(output_path_name + defName);
