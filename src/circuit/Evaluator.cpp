@@ -31,12 +31,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////
-#include <utility>
-#include <algorithm>
-#include "Circuit.h"
-
-namespace Placer {
-bool Circuit::evaluate(Circuit *compared_circuit) {
+#include "Evaluator.h"
+namespace Placer{
+bool Evaluator::evaluate(Evaluator *compared_circuit) {
   compared_circuit_ = compared_circuit;
 
   // Variable numbers check
@@ -62,8 +59,7 @@ bool Circuit::evaluate(Circuit *compared_circuit) {
   }
   return true;
 }
-
-bool Circuit::evaluateIncludeDensity(Circuit *compared_circuit) {
+bool Evaluator::evaluateIncludeDensity(Evaluator *compared_circuit) {
   compared_circuit_ = compared_circuit;
 
   // Variable numbers check
@@ -96,7 +92,7 @@ bool Circuit::evaluateIncludeDensity(Circuit *compared_circuit) {
 
   return true;
 }
-vector<int> Circuit::getVariableNumbers() {
+vector<int> Evaluator::getVariableNumbers() {
   vector<int> varNums;
   varNums.push_back(getCellNumber());
   varNums.push_back(getNetNumber());
@@ -104,58 +100,58 @@ vector<int> Circuit::getVariableNumbers() {
   varNums.push_back(getPadNumber());
   return varNums;
 }
-int Circuit::getCellNumber() {
+int Evaluator::getCellNumber() {
   if ((int) instance_pointers_.size() < 0)
     assert(0);
   return (int) instance_pointers_.size();
 }
-int Circuit::getNetNumber() {
+int Evaluator::getNetNumber() {
   if ((int) net_pointers_.size() < 0)
     assert(0);
   return (int) net_pointers_.size();
 }
-int Circuit::getPinNumber() {
+int Evaluator::getPinNumber() {
   if ((int) pin_pointers_.size() < 0)
     assert(0);
   return (int) pin_pointers_.size();
 }
-int Circuit::getPadNumber() {
+int Evaluator::getPadNumber() {
   if ((int) pad_pointers_.size() < 0)
     assert(0);
   return (int) pad_pointers_.size();
 }
-bool Circuit::cellNumCheck(int ref_cell_num) {
+bool Evaluator::cellNumCheck(int ref_cell_num) {
   if (ref_cell_num == instance_pointers_.size())
     return true;
   else
     return false;
 }
-bool Circuit::netNumCheck(int ref_net_num) {
+bool Evaluator::netNumCheck(int ref_net_num) {
   if (ref_net_num == net_pointers_.size())
     return true;
   else
     return false;
 }
-bool Circuit::pinNumCheck(int ref_pin_num) {
+bool Evaluator::pinNumCheck(int ref_pin_num) {
   if (ref_pin_num == pin_pointers_.size())
     return true;
   else
     return false;
 }
-bool Circuit::padNumCheck(int ref_pad_num) {
+bool Evaluator::padNumCheck(int ref_pad_num) {
   if (ref_pad_num == pad_pointers_.size())
     return true;
   else
     return false;
 }
-bool Circuit::placeCheck() {
+bool Evaluator::placeCheck() {
   bool all_placed = true;
   for (Instance *instance : instance_pointers_)
     if (!instance->isPlaced())
       all_placed = false;
   return all_placed;
 }
-bool Circuit::densityCheck() {
+bool Evaluator::densityCheck() {
   // get the average cell width and height
   long averageWidth = 0, averageHeight = 0;
   for (Instance *instance : instance_pointers_) {
@@ -258,5 +254,8 @@ ulong Circuit::getHPWL() {
 int Circuit::getUnitOfMicro() const {
   return parser_.db_database_->getTech()->getDbUnitsPerMicron();
 }
+
+
+
 
 }

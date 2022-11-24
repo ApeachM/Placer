@@ -38,27 +38,28 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-  string lefName = "Nangate45.lef";
-  // string defName = "simple01.def"
-  string defName;
-  {  // simple argument parsing
-    stringstream ss;
-    ss << argv[1];
-    ss >> defName;
+//  string benchNumber;
+//  {  // simple argument parsing
+//    stringstream ss;
+//    ss << argv[1];
+//    ss >> benchNumber;
+//  }
+  for (int benchNumber = 1; benchNumber <= 10; ++benchNumber) {
+    string lefName = "test" + to_string(benchNumber)  + ".input.lef";
+    string defName = "test" + to_string(benchNumber) + ".input.def";
+    string test_path_name = "../test/competition/test" + to_string(benchNumber) + "/";
+    string output_path_name = "../output/placer/";
+
+    // Parsing and initialize start
+    Placer::Circuit circuit;
+    circuit.parse(test_path_name + lefName, test_path_name + defName);
+
+    // Your own placement
+    circuit.myPlacement();
+    circuit.write(output_path_name + defName);
+
+    cout << "Def is written successfully." << endl;
   }
-  string test_path_name = "../test/benchmarks/";
-  string output_path_name = "../output/placer/";
 
-  // Parsing and initialize start
-  Placer::Circuit circuit;
-  circuit.parse(test_path_name + lefName, test_path_name + defName);
-
-  // circuit.howToUse();
-
-  // Your own placement
-  circuit.myPlacement();
-  circuit.write(output_path_name + defName);
-
-  cout << "Def is written successfully." << endl;
 
 }

@@ -35,7 +35,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "Circuit.h"
+#include "Evaluator.h"
 
 using namespace std;
 
@@ -84,11 +84,11 @@ int main(int argc, char **argv) {
   string test_path_name = "../test/benchmarks/";
   string output_path_name = "../output/placer/";
 
-  Placer::Circuit circuit_input;
+  Placer::Evaluator circuit_input;
   circuit_input.parse(test_path_name + lefName, test_path_name + defName);
   // Reference circuit is parsed.
 
-  Placer::Circuit circuit_output;
+  Placer::Evaluator circuit_output;
   circuit_output.parse(test_path_name + lefName, output_path_name + defName);
   // Circuit made by you is parsed.
 

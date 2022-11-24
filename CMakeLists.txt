@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCES
         src/circuit/Circuit.cpp
         src/circuit/Parser.cpp
+        src/circuit/Evaluator.cpp
 
         src/dataStructures/Die.cpp
         src/dataStructures/Instance.cpp
@@ -12,7 +13,6 @@ set(SOURCES
         src/dataStructures/Pin.cpp
 
         src/algorithm/place.cpp
-        src/algorithm/evaluate.cpp
         src/algorithm/math/matrixSolver.cpp
 
         src/etc/example.cpp

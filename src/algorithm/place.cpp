@@ -15,10 +15,15 @@ void Circuit::quadraticPlacement() {
   // matrix solve example.
   // You should refer below function when you get x respect to Ax = b
   // Below function is implemented in src/algorithm/math/matrixSolver.cpp
-  solve_example();  // You should erase this line.
-  this->placeExample();
+  // solve_example();  // You should erase this line.
+  // this->placeExample();
 }
 void Circuit::myPlacement() {
-  this->placeExample();  // You should erase this line.
+  // this->placeExample();  // You should erase this line.
+  for (int i = 0; i < instance_pointers_.size(); ++i) {
+    Instance* instance = instance_pointers_.at(i);
+    instance->getDbInst()->setPlacementStatus(dbPlacementStatus::NONE);
+  }
+
 }
 }

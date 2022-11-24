@@ -32,59 +32,32 @@
 // POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef PLACER_INCLUDE_DATASTRUCTURES_CIRCUIT_H_
-#define PLACER_INCLUDE_DATASTRUCTURES_CIRCUIT_H_
-#include <vector>
-#include <unordered_map>
-#include "Parser.h"
-#include "Instance.h"
-#include "Net.h"
-#include "Pin.h"
-#include "Die.h"
-
+#ifndef PLACER_INCLUDE_CIRCUIT_EVALUATOR_H_
+#define PLACER_INCLUDE_CIRCUIT_EVALUATOR_H_
+#include "Circuit.h"
 namespace Placer {
-using namespace odb;
+class Evaluator : public Circuit {
+ private:
+  Evaluator *compared_circuit_ = nullptr;
+  bool cellNumCheck(int);
+  bool netNumCheck(int);
+  bool pinNumCheck(int);
+  bool padNumCheck(int);
 
-class Circuit {
- protected:
-  Parser parser_;
-  data_storage data_storage_;
-  data_mapping data_mapping_;
+  int getCellNumber();
+  int getNetNumber();
+  int getPinNumber();
+  int getPadNumber();
 
-  std::vector<Instance *> instance_pointers_;
-  std::vector<Net *> net_pointers_;
-  std::vector<Pin *> pin_pointers_;  // This vector includes instance pin pointers and pad pin pointers
-  std::vector<Pin *> pad_pointers_;
-  Die *die_ = nullptr;
-  void init();
-
-  // for evaluation
-  Circuit *compared_circuit_ = nullptr;
+  bool placeCheck();
+  bool densityCheck();
 
  public:
-  Circuit() = default;
-  ~Circuit() = default;
-  void parse(const string &lef_name, const string &def_name);
-  void write(const string &out_file_name);
-  void quadraticPlacement();
-  void myPlacement();
-
-  /// get unit of micro
-  /// \details
-  /// the coordinate in this circuit is `return value`/1um.
-  /// \example
-  /// if the return value is 100, then
-  /// (20000, 30000) means coordinate (200um, 300um)
-  int getUnitOfMicro() const;
-
-  // etc
-  void howToUse();
-  void placeExample();
-  void dbTutorial() const;
-  ulong getHPWL();
+  // for evaluation
+  bool evaluate(Evaluator *compared_circuit);
+  bool evaluateIncludeDensity(Evaluator *compared_circuit);
+  vector<int> getVariableNumbers();  // vector<int> {cell #, net #, pin #, pad #}
 
 };
-
-} // Placer
-
-#endif //PLACER_INCLUDE_DATASTRUCTURES_CIRCUIT_H_
+}
+#endif //PLACER_INCLUDE_CIRCUIT_EVALUATOR_H_
