@@ -18123,7 +18123,7 @@ COMPONENTS 17782 ;
     - PHY_1073 FILLCELL_X1 + FIXED ( 740620 876400 ) N ;
 END COMPONENTS
 PINS 693 ;
-    - clk + NET clk + DIRECTION INPUT + USE SIGNAL + PLACED ( 70 830060 ) N + LAYER metal3 ( -70 -70 ) ( 70 70 ) ;
+    - clk + NET clk + DIRECTION INPUT + USE CLOCK + PLACED ( 70 830060 ) N + LAYER metal3 ( -70 -70 ) ( 70 70 ) ;
     - dataIn_E[0] + NET dataIn_E[0] + DIRECTION INPUT + USE SIGNAL + PLACED ( 792870 899930 ) N + LAYER metal2 ( -70 -70 ) ( 70 70 ) ;
     - dataIn_E[10] + NET dataIn_E[10] + DIRECTION INPUT + USE SIGNAL + PLACED ( 900270 766780 ) N + LAYER metal3 ( -70 -70 ) ( 70 70 ) ;
     - dataIn_E[11] + NET dataIn_E[11] + DIRECTION INPUT + USE SIGNAL + PLACED ( 318630 70 ) N + LAYER metal2 ( -70 -70 ) ( 70 70 ) ;
@@ -39718,7 +39718,7 @@ NETS 19320 ;
       ( _30867_ CK ) ( _30866_ CK ) ( _30865_ CK ) ( _30864_ CK ) ( _30863_ CK ) ( _30862_ CK ) ( _30861_ CK ) ( _30860_ CK )
       ( _30859_ CK ) ( _30858_ CK ) ( _30857_ CK ) ( _30856_ CK ) ( _30855_ CK ) ( _30854_ CK ) ( _30853_ CK ) ( _30852_ CK )
       ( _30851_ CK ) ( _30850_ CK ) ( _30849_ CK ) ( _30848_ CK ) ( _30847_ CK ) ( _30846_ CK ) ( _30845_ CK ) ( _30844_ CK )
-      ( _30843_ CK ) ( _30842_ CK ) ( _30841_ CK ) ( _30840_ CK ) + USE SIGNAL ;
+      ( _30843_ CK ) ( _30842_ CK ) ( _30841_ CK ) ( _30840_ CK ) + USE CLOCK ;
     - dataIn_E[0] ( PIN dataIn_E[0] ) ( _27442_ A ) + USE SIGNAL ;
     - dataIn_E[10] ( PIN dataIn_E[10] ) ( _27472_ A ) + USE SIGNAL ;
     - dataIn_E[11] ( PIN dataIn_E[11] ) ( _27475_ A ) + USE SIGNAL ;
