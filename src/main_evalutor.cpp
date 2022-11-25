@@ -41,13 +41,17 @@ using namespace std;
 
 void callUsage() {
   cout << "Usage:" << endl;
-  cout << "\t./evaluator <defFileName.def> 0||1" << endl << endl;
-  cout << "\tYou should get the argument as the def file name in test/benchmarks," << endl;
-  cout << "\tand write zero or one evaluate the density or not." << endl;
-  cout << "\tIf you want to evaluate only for quadratic, then put zero in there. " << endl << endl;
+  cout << "\tFor quadratic placer," << endl;
+  cout << "\t\t./evaluator <defFileName.def>  0" << endl;
+  cout << "\t\tEx) For quadratic," << endl;
+  cout << "\t\t\t./evaluator simple01.def 0" << endl << endl;
+  cout << "\t\t\t./evaluator medium01.def 0" << endl << endl;
 
-  cout << "\tEx)" << endl;
-  cout << "\t\t./evaluator simple01.def 0" << endl;
+  cout << "\tFor general placer," << endl;
+  cout << "\t\t./evaluator <benchNumber>  1" << endl;
+  cout << "\t\tEx) For GeneralPlacer," << endl;
+  cout << "\t\t\t./evaluator 1 1" << endl;
+  cout << "\t\t\t./evaluator 4 1" << endl;
 }
 
 int main(int argc, char **argv) {
@@ -56,33 +60,43 @@ int main(int argc, char **argv) {
     callUsage();
     return 0;
   }
-  string lefName = "Nangate45.lef";
-  // string defName = "simple01.def"
+  string lefName;
   string defName;
-  {  // simple argument parsing
+  {
     stringstream ss;
     ss << argv[1];
     ss >> defName;
   }
 
-  bool density_evaluate = false;
-  {  // simple argument parsing
+  bool general_place_evaluate;
+  {
     string argv2;
     stringstream ss;
     ss << argv[2];
     ss >> argv2;
     if (argv2 == "0")
-      density_evaluate = false;
+      general_place_evaluate = false;
     else if (argv2 == "1")
-      density_evaluate = true;
+      general_place_evaluate = true;
     else {
       callUsage();
       return 0;
     }
   }
 
-  string test_path_name = "../test/benchmarks/";
-  string output_path_name = "../output/placer/";
+  string test_path_name;
+  string output_path_name;
+  if (!general_place_evaluate) {
+    lefName = "Nangate45.lef";
+    test_path_name = "../test/benchmarks/";
+    output_path_name = "../output/placer/";
+  } else {
+    string benchNumber = defName;
+    lefName = "test" + benchNumber + ".input.lef";
+    defName = "test" + benchNumber + ".input.def";
+    test_path_name = "../test/competition/test" + benchNumber + "/";
+    output_path_name = "../output/placer/";
+  }
 
   Placer::Evaluator circuit_input;
   circuit_input.parse(test_path_name + lefName, test_path_name + defName);
@@ -97,7 +111,7 @@ int main(int argc, char **argv) {
   cout << "HPWL: " << static_cast<double>(circuit_output.getHPWL()) << endl;
 
   // evaluation execute
-  if (!density_evaluate) {
+  if (!general_place_evaluate) {
     // for quadratic evaluation || basic evaluation
     if (!circuit_output.evaluate(&circuit_input)) {
       // fail

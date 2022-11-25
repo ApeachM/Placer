@@ -1,0 +1,6 @@
+Scale info
+
+Medium
+	test1, test2, test3(hidden)
+Large
+	test4, test5(hidden)

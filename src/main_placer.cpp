@@ -36,18 +36,29 @@
 #include "Circuit.h"
 
 using namespace std;
+void callUsage(){
+  cout << "Usage:" << endl;
+  cout << "\t./placer <benchNumber>" << endl;
+  cout << "Ex)" << endl;
+  cout << "\t\t./placer 1" << endl;
+}
 
 int main(int argc, char **argv) {
-//  string benchNumber;
-//  {  // simple argument parsing
-//    stringstream ss;
-//    ss << argv[1];
-//    ss >> benchNumber;
-//  }
-  for (int benchNumber = 1; benchNumber <= 10; ++benchNumber) {
-    string lefName = "test" + to_string(benchNumber)  + ".input.lef";
-    string defName = "test" + to_string(benchNumber) + ".input.def";
-    string test_path_name = "../test/competition/test" + to_string(benchNumber) + "/";
+
+  if (argc != 2) {
+    callUsage();
+    return 0;
+  }
+
+  string benchNumber;
+  {
+    stringstream ss;
+    ss << argv[1];
+    ss >> benchNumber;
+  }
+    string lefName = "test" + benchNumber  + ".input.lef";
+    string defName = "test" + benchNumber + ".input.def";
+    string test_path_name = "../test/competition/test" + benchNumber + "/";
     string output_path_name = "../output/placer/";
 
     // Parsing and initialize start
