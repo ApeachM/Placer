@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
-// This is property of CSDL, POSTECH in Korea
 // Creator: Minjae Kim of CSDL, POSTECH
 // Email:   kmj0824@postech.ac.kr
 // GitHub:  ApeachM
+//
 // BSD 3-Clause License
 //
 // Redistribution and use in source and binary forms, with or without
@@ -31,46 +31,30 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 ///////////////////////////////////////////////////////////////////////////////
-#include <iostream>
-#include <sstream>
+#ifndef PLACER_INCLUDE_TOOLS_VISUALIZER_H_
+#define PLACER_INCLUDE_TOOLS_VISUALIZER_H_
 #include "Circuit.h"
+#include "CImg.h"
+int MARGIN;
+using Image = cimg_library::CImg<unsigned char>;
 
-using namespace std;
-void callUsage() {
-  cout << "Usage:" << endl;
-  cout << "\t./placer <benchNumber>" << endl;
-  cout << "Ex)" << endl;
-  cout << "\t\t./placer 1" << endl;
-}
+namespace Color {
+// Pin      - BLACK, Rect
+// Cell     - BLACK, Circle
+// Net      - RED, Line
+const unsigned char BLACK[] = {0, 0, 0};
+const unsigned char DIM_GRAY[] = {105, 105, 105};
+const unsigned char WHITE[] = {255, 255, 255};
+const unsigned char BLUE[] = {0, 0, 255};
+const unsigned char RED[] = {255, 0, 0};
+const unsigned char PINK[] = {255, 51, 255};
+const unsigned char LIGHT_YELLOW[] = {255, 236, 196};
+const unsigned char LIGHT_GREEN[] = {73, 235, 52};
+}  // namespace Color
 
-int main(int argc, char **argv) {
+void drawDie(Image &circuit, Placer::Die *die);
+void drawCell(Image &circuit, Placer::Instance *instance);
+void drawNet(Image &circuit, Placer::Net *net);
+void drawPad(Image &circuit, Placer::Pin *pin);
 
-  if (argc != 2) {
-    callUsage();
-    return 0;
-  }
-
-  string benchNumber;
-  {
-    stringstream ss;
-    ss << argv[1];
-    ss >> benchNumber;
-  }
-  string lefName = "test" + benchNumber + ".input.lef";
-  string defName = "test" + benchNumber + ".input.def";
-  string test_path_name = "../test/competition/";
-  string output_path_name = "../output/placer/";
-
-  // Parsing and initialize start
-  Placer::Circuit circuit;
-  circuit.parse(test_path_name + lefName, test_path_name + defName);
-
-  // Your own placement
-  circuit.myPlacement();
-  circuit.saveImg("random_result");
-  cout << "image generating end." << endl;
-  circuit.write(output_path_name + defName);
-
-  cout << "Def is written successfully." << endl;
-}
-
+#endif //PLACER_INCLUDE_TOOLS_VISUALIZER_H_
