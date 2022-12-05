@@ -58,9 +58,6 @@ class Circuit {
   Die *die_ = nullptr;
   void init();
 
-  // for evaluation
-  Circuit *compared_circuit_ = nullptr;
-
  public:
   Circuit() = default;
   ~Circuit() = default;
@@ -76,6 +73,13 @@ class Circuit {
   /// if the return value is 100, then
   /// (20000, 30000) means coordinate (200um, 300um)
   int getUnitOfMicro() const;
+
+  /// \brief
+  /// saveImg the circuit image.
+  /// \details
+  /// It saves the picture for the cells, pads, and nets in the circuit,
+  /// in the output/images/file_name.png
+  void saveImg(const string& file_name);
 
   // etc
   void howToUse();

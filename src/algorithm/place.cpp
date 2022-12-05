@@ -19,11 +19,6 @@ void Circuit::quadraticPlacement() {
   // this->placeExample();
 }
 void Circuit::myPlacement() {
-  // this->placeExample();  // You should erase this line.
-  for (int i = 0; i < instance_pointers_.size(); ++i) {
-    Instance* instance = instance_pointers_.at(i);
-    instance->getDbInst()->setPlacementStatus(dbPlacementStatus::NONE);
-  }
-
+  this->placeExample();  // You should erase this line.
 }
 }

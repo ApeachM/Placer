@@ -15,6 +15,8 @@ set(SOURCES
         src/algorithm/place.cpp
         src/algorithm/math/matrixSolver.cpp
 
+        src/tools/visualizer.cpp
+
         src/etc/example.cpp
         src/etc/dbExample.cpp
         )
@@ -24,6 +26,8 @@ set(INCLUDE_DIRS
         ${PROJECT_SOURCE_DIR}/include/algorithm
         ${PROJECT_SOURCE_DIR}/include/circuit
         ${PROJECT_SOURCE_DIR}/include/dataStructures
+        ${PROJECT_SOURCE_DIR}/include/tools
+        ${PROJECT_SOURCE_DIR}/submodule/CImg
         )
 
 add_executable(placer src/main_placer.cpp ${SOURCES})
@@ -35,6 +39,6 @@ target_include_directories(qPlacer PRIVATE ${INCLUDE_DIRS})
 target_include_directories(evaluator PRIVATE ${INCLUDE_DIRS})
 
 add_subdirectory(submodule/OpenDB)
-target_link_libraries(placer PRIVATE opendb)
-target_link_libraries(qPlacer PRIVATE opendb)
-target_link_libraries(evaluator PRIVATE opendb)
+target_link_libraries(placer PRIVATE opendb X11 pthread)
+target_link_libraries(qPlacer PRIVATE opendb X11 pthread)
+target_link_libraries(evaluator PRIVATE opendb X11 pthread)
