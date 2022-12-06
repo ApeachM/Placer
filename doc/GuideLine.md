@@ -233,13 +233,14 @@ make
 ```
 
 ```shell
-./placer <defname.def>
+./placer <benchNumber>
 ```
 
 For example,
 
 ```shell
-./placer simple01.def
+./placer 0
+./placer 2
 ```
 
 ### Code Usages
