@@ -36,6 +36,7 @@
 #define PLACER_INCLUDE_DATASTRUCTURES_CIRCUIT_H_
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 #include "Parser.h"
 #include "Instance.h"
 #include "Net.h"
@@ -66,6 +67,7 @@ class Circuit {
   void quadraticPlacement();
   void myPlacement();
 
+  /// \brief
   /// get unit of micro
   /// \details
   /// the coordinate in this circuit is `return value`/1um.
@@ -81,11 +83,18 @@ class Circuit {
   /// in the output/images/file_name.png
   void saveImg(const string& file_name);
 
+  /// \brief
+  /// return the HPWL of the total circuit
+  ulong getHPWL();
+
+  /// \brief
+  /// Analyze the bench metrics and print them
+  void analyzeBench();
+
   // etc
   void howToUse();
   void placeExample();
   void dbTutorial() const;
-  ulong getHPWL();
 
 };
 

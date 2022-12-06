@@ -65,6 +65,10 @@ void Circuit::init() {
     Instance instance(db_inst);
     instance.setDataStorage(&data_storage_);
     instance.setDataMapping(&data_mapping_);
+    if (instance.isPlaced()){
+      auto coordinate = instance.getCoordinate();
+      instance.setCoordinate(coordinate.first, coordinate.second);
+    }
     data_storage_.instances.push_back(instance);
   }
   // 2-3. make pointer set and map from db_instance to instance pointer
@@ -140,6 +144,31 @@ void Circuit::init() {
 }
 void Circuit::write(const string &out_file_name) {
   parser_.writeDef(out_file_name);
+}
+int Circuit::getUnitOfMicro() const {
+  return parser_.db_database_->getTech()->getDbUnitsPerMicron();
+}
+ulong Circuit::getHPWL() {
+  ulong HPWL = 0;
+  for (Net *net : net_pointers_) {
+    HPWL += net->getHPWL();
+  }
+  return HPWL;
+}
+void Circuit::analyzeBench() {
+  cout << "================== bench analyze ==================" << endl;
+  cout << "Instance #: " << instance_pointers_.size() << endl;
+  cout << "Net #: " << net_pointers_.size() << endl;
+  cout << "IO pad #: " << pad_pointers_.size() << endl;
+  uint64 total_cell_area = 0;
+  uint64 die_area = die_->getArea();
+  for (auto instance: instance_pointers_) {
+    total_cell_area += instance->getArea();
+  }
+  cout << scientific << endl;
+  cout << "Total Cell Area: " << static_cast<double>(total_cell_area)  << endl;
+  cout << "Die Area: " << static_cast<double>(die_area)  << endl;
+  cout << "===================================================" << endl;
 }
 
 } // Placer
