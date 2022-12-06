@@ -1,6 +1,57 @@
 Scale info
 
 Medium
-	test1, test2, test3(hidden)
+	test1, test2, test3(not hidden, Open!)
 Large
 	test4, test5(hidden)
+
+
+test1 (medium01)
+================== bench analyze ==================
+Instance #: 17782
+Net #: 19322
+IO pad #: 693
+
+Total Cell Area: 1.182125e+11
+Die Area: 8.103060e+11
+===================================================
+
+test2 (medium02)
+================== bench analyze ==================
+Instance #: 37004
+Net #: 39220
+IO pad #: 231
+
+Total Cell Area: 2.279460e+11
+Die Area: 1.439712e+12
+===================================================
+
+test3 (medium03)
+================== bench analyze ==================
+Instance #: 35913
+Net #: 36834
+IO pad #: 1211
+
+Total Cell Area: 7.115707e+11
+Die Area: 1.494705e+12
+===================================================
+
+test4 (large01)
+================== bench analyze ==================
+Instance #: 192911
+Net #: 178858
+IO pad #: 1211
+
+Total Cell Area: 2.454668e+12
+Die Area: 2.855216e+12
+===================================================
+
+test5 (large02)
+================== bench analyze ==================
+Instance #: 290386
+Net #: 182000
+IO pad #: 1211
+
+Total Cell Area: 2.708448e+12
+Die Area: 2.855216e+12
+===================================================
