@@ -441,7 +441,7 @@ The grading will follow the below equation.
 
 $$
 Score = \begin{cases} \alpha\times
-\frac{1}{1+\log(\frac{HPWL}{HPWL_{1st}})}, & \text{if } maxDensity \leq 1 \\
+\frac{1}{1+\log(\frac{HPWL}{HPWL_{1st}})}, & \text{if } maxDensity \leq 1.2 \\
 \alpha\times
 \frac{1}{1+\log(\frac{HPWL}{HPWL_{1st}})}\times e^{-(maxDensity -1)}, & \text{otherwise}
 \end{cases}
@@ -472,16 +472,17 @@ cmake ..
 make
 ```
 
-execute the binary file with the def file name and evalute version (1).
+execute the binary file with the bench number and evalution version (1).
 
 ```shell
-./evaluator <defname.def> 1
+./evaluator <benchNumber> 1
 ```
 
 For example,
 
 ```shell
-./evaluator simple01.def 1
+./evaluator 2 1
+./evaluator 3 1
 ```
 
 Then you can the HPWL value and the max density value.
@@ -490,10 +491,9 @@ Then you can the HPWL value and the max density value.
 
 Five benchmarks for scoring will exist; `midium01.def`, `midium02.def`, `midium03.def`, `large01.def`,  `large02.def`.
 
-`midium01.def`, `midium02.def`,  `large01.def`, will be assigned, but the other two things will be hidden.
+`midium01.def`, `midium02.def`, `midium03`, `large01.def`, will be assigned, but the other thing will be hidden.
 
-Simple benchmarks, `simple01.def`, `simple02.def`, `simple03.def`,`simple04.def` will also be given, but this will not
-be considered for scoring. These benchmarks will be given only for your debugging.
+Simple benchmarks, `simple01.def`, `simple02.def`, `simple03.def`,`simple04.def` will also be given, but this will not be considered for scoring. These benchmarks will be given only for your debugging.
 
 Total running time will be limited 15min for placing above five benchmarks.
 
@@ -523,5 +523,6 @@ Copyright (c) 2022 CSDL (CAD&SoC Design Lab) POSTECH, Korea. All rights reserved
 ```
 Developed by:
 
-    The teaching assistant of EECE667, POSTECH in Korea
+    MinJae Kim, the teaching assistant of EECE667 in POSTECH, Korea
+    GitHub: ApeachM
 ```
