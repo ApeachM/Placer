@@ -50,7 +50,7 @@ uint Die::getWidth() {
 uint Die::getHeight() {
   return die_shape_.dy();
 }
-uint Die::getArea() {
+uint64 Die::getArea() {
   return die_shape_.area();
 }
 } // Placer

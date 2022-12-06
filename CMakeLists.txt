@@ -32,7 +32,7 @@ set(INCLUDE_DIRS
 
 add_executable(placer src/main_placer.cpp ${SOURCES})
 add_executable(qPlacer src/main_qPlacer.cpp ${SOURCES})
-add_executable(evaluator src/main_evalutor.cpp ${SOURCES})
+add_executable(evaluator src/main_evaluator.cpp ${SOURCES})
 
 target_include_directories(placer PRIVATE ${INCLUDE_DIRS})
 target_include_directories(qPlacer PRIVATE ${INCLUDE_DIRS})

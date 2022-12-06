@@ -45,7 +45,7 @@ void callUsage() {
   cout << "\t\t./evaluator <defFileName.def>  0" << endl;
   cout << "\t\tEx) For quadratic," << endl;
   cout << "\t\t\t./evaluator simple01.def 0" << endl << endl;
-  cout << "\t\t\t./evaluator medium01.def 0" << endl << endl;
+  cout << "\t\t\t./evaluator test1.input.def 0" << endl << endl;
 
   cout << "\tFor general placer," << endl;
   cout << "\t\t./evaluator <benchNumber>  1" << endl;
@@ -89,43 +89,43 @@ int main(int argc, char **argv) {
   if (!general_place_evaluate) {
     lefName = "Nangate45.lef";
     test_path_name = "../test/benchmarks/";
-    output_path_name = "../output/placer/";
+    output_path_name = "../output/qPlacer/";
   } else {
     string benchNumber = defName;
     lefName = "test" + benchNumber + ".input.lef";
     defName = "test" + benchNumber + ".input.def";
-    test_path_name = "../test/competition/test" + benchNumber + "/";
+    test_path_name = "../test/competition/";
     output_path_name = "../output/placer/";
   }
 
-  Placer::Evaluator circuit_input;
-  circuit_input.parse(test_path_name + lefName, test_path_name + defName);
+  Placer::Evaluator input_circuit;
+  input_circuit.parse(test_path_name + lefName, test_path_name + defName);
   // Reference circuit is parsed.
 
-  Placer::Evaluator circuit_output;
-  circuit_output.parse(test_path_name + lefName, output_path_name + defName);
+  Placer::Evaluator result_circuit;
+  result_circuit.parse(test_path_name + lefName, output_path_name + defName);
   // Circuit made by you is parsed.
 
   // HPWL calculation
   cout << scientific << endl;
-  cout << "HPWL: " << static_cast<double>(circuit_output.getHPWL()) << endl;
+  cout << "HPWL: " << static_cast<double>(result_circuit.getHPWL()) << endl;
 
   // evaluation execute
   if (!general_place_evaluate) {
-    // for quadratic evaluation || basic evaluation
-    if (!circuit_output.evaluate(&circuit_input)) {
+    // for quadratic evaluation
+    if (!result_circuit.placeLegalityCheck(&input_circuit)) {
       // fail
       cout << "Some condition is not satisfied." << endl;
       return 0;
     }
   } else {
     // for evaluation with density checking
-    if (!circuit_output.evaluateIncludeDensity(&circuit_input)) {
-      cout << "Some condition is not satisfied." << endl;
+    if (!result_circuit.evaluate(&input_circuit)) {
+      cout << "== Some condition is not satisfied. ==" << endl;
       return 0;
     }
   }
 
-  cout << "Evaluation is end completely." << endl;
+  cout << "== Evaluation is end completely. ==" << endl;
   return 0;
 }
