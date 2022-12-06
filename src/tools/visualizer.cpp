@@ -56,7 +56,8 @@ void drawCell(Image &image, Instance *cell) {
   image.draw_rectangle(lower_left_x, lower_left_y, upper_right_x, upper_right_y, Color::BLACK);
 }
 void drawNet(Image &image, Placer::Net *net) {
-  int center_x = 0, center_y = 0;
+  uint64 center_x = 0, center_y = 0;
+  int valid_pin_number = 0;
   for (auto pin : net->getConnectedPins()) {
     // if the connected cells are not placed
     if (!pin->getInstance())
@@ -65,13 +66,17 @@ void drawNet(Image &image, Placer::Net *net) {
       assert(0);
     center_x += pin->getCoordinate().first;
     center_y += pin->getCoordinate().second;
+    valid_pin_number ++;
   }
+  if (valid_pin_number == 0)
+    return;
+  center_x /= valid_pin_number;
+  center_y /= valid_pin_number;
+  center_x /= scale_factor;
+  center_y /= scale_factor;
 
-  center_x /= static_cast<int>(net->getConnectedPins().size());
-  center_y /= static_cast<int>(net->getConnectedPins().size());
-
-  int x1 = (center_x) / scale_factor + MARGIN;
-  int y1 = (center_y) / scale_factor + MARGIN;
+  int x1 = (center_x) + MARGIN;
+  int y1 = (center_y) + MARGIN;
 
   for (auto pin : net->getConnectedPins()) {
     int x2 = (pin->getCoordinate().first) / scale_factor + MARGIN;
@@ -92,6 +97,9 @@ void drawPad(Image &image, Placer::Pin *pin) {
                        Color::BLUE);
 }
 void Circuit::saveImg(const string &file_name) {
+  // image save time check
+  clock_t start_time = clock();
+
   // define the image size 2000x2000 pixel
   int img_width = 2000;
 
@@ -122,5 +130,8 @@ void Circuit::saveImg(const string &file_name) {
   string file_path = "../output/images/" + file_name + ".bmp";
   const char *file_path_char = file_path.c_str();
   image.save(file_path_char);
+
+  clock_t end_time = clock();
+  cout << "Image generating time: " << (double) (end_time - start_time) / CLOCKS_PER_SEC << "sec" << endl;
 }
 }

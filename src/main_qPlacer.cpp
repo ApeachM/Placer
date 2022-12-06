@@ -63,8 +63,13 @@ int main(int argc, char **argv) {
 
   Placer::Circuit circuit;
   circuit.parse(test_path_name + lefName, test_path_name + defName);
+  circuit.analyzeBench();
+//  circuit.howToUse();
 
-  circuit.howToUse();
+
+  // save image
+  string img_file_name = "result" + defName;
+  circuit.saveImg(img_file_name);
 
   circuit.quadraticPlacement();
   circuit.write(output_path_name + defName);

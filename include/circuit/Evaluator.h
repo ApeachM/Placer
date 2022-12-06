@@ -49,13 +49,15 @@ class Evaluator : public Circuit {
   int getPinNumber();
   int getPadNumber();
 
+  bool isAllCellInDie();
   bool placeCheck();
+  pair<int, int> getBinNumbers();
   bool densityCheck();
 
  public:
   // for evaluation
+  bool placeLegalityCheck(Evaluator *compared_circuit);
   bool evaluate(Evaluator *compared_circuit);
-  bool evaluateIncludeDensity(Evaluator *compared_circuit);
   vector<int> getVariableNumbers();  // vector<int> {cell #, net #, pin #, pad #}
 
 };

@@ -64,11 +64,14 @@ int main(int argc, char **argv) {
   // Parsing and initialize start
   Placer::Circuit circuit;
   circuit.parse(test_path_name + lefName, test_path_name + defName);
+  circuit.analyzeBench();
 
   // Your own placement
   circuit.myPlacement();
-  circuit.saveImg("random_result");
-  cout << "image generating end." << endl;
+
+  // save image
+  string img_file_name = "result" + benchNumber;
+  circuit.saveImg(img_file_name);
   circuit.write(output_path_name + defName);
 
   cout << "Def is written successfully." << endl;

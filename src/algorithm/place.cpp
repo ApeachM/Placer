@@ -16,7 +16,7 @@ void Circuit::quadraticPlacement() {
   // You should refer below function when you get x respect to Ax = b
   // Below function is implemented in src/algorithm/math/matrixSolver.cpp
   // solve_example();  // You should erase this line.
-  // this->placeExample();
+   this->placeExample();
 }
 void Circuit::myPlacement() {
   this->placeExample();  // You should erase this line.
