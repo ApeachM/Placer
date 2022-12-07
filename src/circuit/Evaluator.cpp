@@ -173,41 +173,36 @@ bool Evaluator::densityCheck() {
   number_of_grid = getBinNumbers();
   uint die_width = die_->getWidth();
   uint die_height = die_->getHeight();
-  int bin_width = static_cast<int>(die_width / number_of_grid.first);
-  int bin_height = static_cast<int>(die_height / number_of_grid.second);
+  uint64 bin_width = static_cast<int>(die_width / number_of_grid.first);
+  uint64 bin_height = static_cast<int>(die_height / number_of_grid.second);
 
   // grid setting
   class Bin {
    public:
     Bin() = default;
-    explicit Bin(int area, pair<int, int> lower_left, pair<int, int> upper_right)
-        : bin_area_(area), lower_left_(std::move(lower_left)), upper_right_(std::move(upper_right)) {}
+    explicit Bin(pair<int, int> lower_left, pair<int, int> upper_right)
+        : lower_left_(std::move(lower_left)), upper_right_(std::move(upper_right)) {}
     pair<int, int> lower_left_;
     pair<int, int> upper_right_;
-    int bin_area_{0};
-    int cell_area_{0};
+    uint64 cell_area_{0};
     void getOverlapArea(Instance *instance) {
-      if (bin_area_ == 0) {
-        // not initialized.
-        assert(0);
-      } else {
-        pair<int, int> instance_lower_left = instance->getCoordinate();
-        pair<int, int> instance_upper_right
-            {instance_lower_left.first + instance->getWidth(), instance_lower_left.second + instance->getHeight()};
-        if (instance_upper_right.first <= lower_left_.first) {
-          return;
-        } else if (instance_upper_right.second <= lower_left_.second) {
-          return;
-        } else if (instance_lower_left.first >= upper_right_.first) {
-          return;
-        } else if (instance_lower_left.second >= upper_right_.second) {
-          return;
-        } else {
-          int dx = instance_upper_right.first - lower_left_.first;
-          int dy = instance_upper_right.second - lower_left_.second;
-          cell_area_ += dx * dy;
-        }
+      pair<int, int> instance_lower_left = instance->getCoordinate();
+      pair<int, int> instance_upper_right {
+          instance_lower_left.first + (int) instance->getWidth(),
+          instance_lower_left.second + (int) instance->getHeight()
+      };
+      int rectLx = max(this->lower_left_.first, instance_lower_left.first);
+      int rectLy = max(this->lower_left_.second, instance_lower_left.second);
+      int rectUx = min(this->upper_right_.first, instance_upper_right.first);
+      int rectUy = min(this->upper_right_.second, instance_upper_right.second);
+
+      int overlapWidth = rectUx - rectLx;
+      int overlapHeight = rectUy - rectLy;
+
+      if (overlapWidth < 0 || overlapHeight < 0) {
+        return;
       }
+      cell_area_ += (rectUx - rectLx) * (rectUy - rectLy);
     }
   };
   vector<vector<Bin>> bins2D;
@@ -216,7 +211,7 @@ bool Evaluator::densityCheck() {
     for (int j = 0; j <= number_of_grid.second; ++j) {
       pair<int, int> lower_left{i * bin_width, j * bin_height};
       pair<int, int> upper_right{(i + 1) * bin_width, (j + 1) * bin_height};
-      bins1D.emplace_back(static_cast<int>(die_width * die_height), lower_left, upper_right);
+      bins1D.emplace_back(lower_left, upper_right);
     }
     bins2D.push_back(bins1D);
   }
@@ -242,7 +237,7 @@ bool Evaluator::densityCheck() {
 
   // find bin which has max density
   // time complexity: O(mxm), m is bin numbers
-  int max_cell_area_in_bin = 0;
+  uint64 max_cell_area_in_bin = 0;
   Bin max_density_bin;
   for (int i = 0; i < number_of_grid.second; ++i) {
     for (int j = 0; j < number_of_grid.first; ++j) {
@@ -255,7 +250,6 @@ bool Evaluator::densityCheck() {
 
   auto max_density =
       static_cast<float>(max_cell_area_in_bin * 1e-10) / static_cast<float>(1e-10 * bin_height * bin_width);
-
   if (max_density > 1.2) {
     cout << "The overflow grid is " << endl
          << "(" << max_density_bin.lower_left_.first << ", " << max_density_bin.lower_left_.second << ")"
