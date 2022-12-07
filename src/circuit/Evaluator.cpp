@@ -225,8 +225,8 @@ bool Evaluator::densityCheck() {
 
     int left_idx = static_cast<int>(instance_lower_left.first / bin_width);
     int right_idx = static_cast<int>(instance_upper_right.first / bin_width);
-    int lower_idx = static_cast<int>(instance_lower_left.second / bin_width);
-    int upper_idx = static_cast<int>(instance_upper_right.second / bin_width);
+    int lower_idx = static_cast<int>(instance_lower_left.second / bin_height);
+    int upper_idx = static_cast<int>(instance_upper_right.second / bin_height);
     for (int j = left_idx; j <= right_idx; ++j) {
       for (int k = lower_idx; k <= upper_idx; ++k) {
         bins2D.at(j).at(k).getOverlapArea(instance);
